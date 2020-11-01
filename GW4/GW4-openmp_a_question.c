@@ -31,6 +31,7 @@ int main(int argc, char **argv) {
 
 
   //Write code here
+double time = omp_get_wtime();
 #pragma omp parallel shared(x, y, z) private(i, j, counter)
 {
    #pragma omp for
@@ -47,6 +48,7 @@ int main(int argc, char **argv) {
       z[i] = counter;
    }
 }
+time = omp_get_wtime() - time;
 
 int outercounter = 0;
 for (i = 0; i < N; i++) {
@@ -54,7 +56,7 @@ for (i = 0; i < N; i++) {
 }
 
 printf("\nCounter: %d\n", outercounter);
-
+printf("\nRunning Time: %f\n", time);
 
   free(x);
   free(y);
