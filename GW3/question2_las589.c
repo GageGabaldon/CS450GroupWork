@@ -22,16 +22,19 @@ int main(int argc, char **argv) {
 
 
 
+
+
   int x;
   double test;
 
-  // Parallelized code
+
+  //Parallelize here
   #pragma omp parallel private(x, test) shared(t, H, k)
   {
-    #pragma omp for nowait
+    #pragma omp for nowait schedule(dynamic)
     for (x=0; x<N; x++)
     {
-      test = 0.000001+(x*0.0001);
+      test=0.000001+(x*0.0001);
       scientistfunction(x, t, H, k, test, N);
     }
   }
